@@ -1,0 +1,3 @@
+CREATE VIEW X AS SELECT * FROM frequency UNION SELECT 'q' as docid, 'washington' as term, 1 as count UNION SELECT 'q' as docid, 'taxes' as term, 1 as count UNION SELECT 'q' as docid, 'treasury' as term, 1 as count 
+
+SELECT A.docid, B.docid, sum(A.count*B.count) s FROM (SELECT docid, term, count from X) A INNER JOIN (SELECT term, docid, count from X) B on A.term = B.term WHERE B.docid = "q" GROUP BY A.docid, B.docid ORDER BY s;
